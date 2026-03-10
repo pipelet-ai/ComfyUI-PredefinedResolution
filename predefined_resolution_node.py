@@ -180,5 +180,5 @@ NODE_CLASS_MAPPINGS = {
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "PredefinedResolution": "Predefined Resolution"
+    "PredefinedResolution": "Snap to Nearest Aspect Ratio"
 }
