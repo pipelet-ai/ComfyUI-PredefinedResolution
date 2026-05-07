@@ -4,7 +4,9 @@ class PredefinedResolutionNode:
     RATIO_PRESETS = {
         "21:9": 21/9,
         "16:9": 16/9,
+        "4:3": 4/3,
         "1:1": 1.0,
+        "3:4": 3/4,
         "9:16": 9/16,
         "9:21": 9/21
     }
@@ -51,11 +53,25 @@ class PredefinedResolutionNode:
                     "default": "1920x1080",
                     "multiline": False
                 }),
+                "enable_4_3": ("BOOLEAN", {
+                    "default": True
+                }),
+                "custom_4_3": ("STRING", {
+                    "default": "1440x1080",
+                    "multiline": False
+                }),
                 "enable_1_1": ("BOOLEAN", {
                     "default": True
                 }),
                 "custom_1_1": ("STRING", {
                     "default": "1080x1080",
+                    "multiline": False
+                }),
+                "enable_3_4": ("BOOLEAN", {
+                    "default": True
+                }),
+                "custom_3_4": ("STRING", {
+                    "default": "1080x1440",
                     "multiline": False
                 }),
                 "enable_9_16": ("BOOLEAN", {
@@ -91,14 +107,17 @@ class PredefinedResolutionNode:
             pass
         return None, None
     
-    def get_resolution_for_ratio(self, ratio_name, output_resolution, 
-                                  custom_21_9, custom_16_9, custom_1_1, 
+    def get_resolution_for_ratio(self, ratio_name, output_resolution,
+                                  custom_21_9, custom_16_9, custom_4_3,
+                                  custom_1_1, custom_3_4,
                                   custom_9_16, custom_9_21):
         if output_resolution == "Custom":
             custom_map = {
                 "21:9": custom_21_9,
                 "16:9": custom_16_9,
+                "4:3": custom_4_3,
                 "1:1": custom_1_1,
+                "3:4": custom_3_4,
                 "9:16": custom_9_16,
                 "9:21": custom_9_21
             }
@@ -142,7 +161,9 @@ class PredefinedResolutionNode:
     def calculate_resolution(self, width, height, output_resolution,
                             enable_21_9=True, custom_21_9="2560x1080",
                             enable_16_9=True, custom_16_9="1920x1080",
+                            enable_4_3=True, custom_4_3="1440x1080",
                             enable_1_1=True, custom_1_1="1080x1080",
+                            enable_3_4=True, custom_3_4="1080x1440",
                             enable_9_16=True, custom_9_16="1080x1920",
                             enable_9_21=True, custom_9_21="1080x2560"):
         
@@ -153,8 +174,12 @@ class PredefinedResolutionNode:
             enabled_ratios.add("21:9")
         if enable_16_9:
             enabled_ratios.add("16:9")
+        if enable_4_3:
+            enabled_ratios.add("4:3")
         if enable_1_1:
             enabled_ratios.add("1:1")
+        if enable_3_4:
+            enabled_ratios.add("3:4")
         if enable_9_16:
             enabled_ratios.add("9:16")
         if enable_9_21:
@@ -167,7 +192,9 @@ class PredefinedResolutionNode:
         
         output_width, output_height = self.get_resolution_for_ratio(
             snapped_ratio, output_resolution,
-            custom_21_9, custom_16_9, custom_1_1, custom_9_16, custom_9_21
+            custom_21_9, custom_16_9, custom_4_3,
+            custom_1_1, custom_3_4,
+            custom_9_16, custom_9_21
         )
         
         width_height_ratio = output_width / output_height if output_height > 0 else 1.0
