@@ -4,11 +4,11 @@ class PredefinedResolutionNode:
     RATIO_PRESETS = {
         "21:9": 21/9,
         "16:9": 16/9,
-        "4:3": 4/3,
         "1:1": 1.0,
-        "3:4": 3/4,
         "9:16": 9/16,
-        "9:21": 9/21
+        "9:21": 9/21,
+        "4:3": 4/3,
+        "3:4": 3/4
     }
     
     RESOLUTION_PRESETS = {
@@ -53,25 +53,11 @@ class PredefinedResolutionNode:
                     "default": "1920x1080",
                     "multiline": False
                 }),
-                "enable_4_3": ("BOOLEAN", {
-                    "default": True
-                }),
-                "custom_4_3": ("STRING", {
-                    "default": "1440x1080",
-                    "multiline": False
-                }),
                 "enable_1_1": ("BOOLEAN", {
                     "default": True
                 }),
                 "custom_1_1": ("STRING", {
                     "default": "1080x1080",
-                    "multiline": False
-                }),
-                "enable_3_4": ("BOOLEAN", {
-                    "default": True
-                }),
-                "custom_3_4": ("STRING", {
-                    "default": "1080x1440",
                     "multiline": False
                 }),
                 "enable_9_16": ("BOOLEAN", {
@@ -86,6 +72,20 @@ class PredefinedResolutionNode:
                 }),
                 "custom_9_21": ("STRING", {
                     "default": "1080x2560",
+                    "multiline": False
+                }),
+                "enable_4_3": ("BOOLEAN", {
+                    "default": True
+                }),
+                "custom_4_3": ("STRING", {
+                    "default": "1440x1080",
+                    "multiline": False
+                }),
+                "enable_3_4": ("BOOLEAN", {
+                    "default": True
+                }),
+                "custom_3_4": ("STRING", {
+                    "default": "1080x1440",
                     "multiline": False
                 }),
             }
@@ -115,11 +115,11 @@ class PredefinedResolutionNode:
             custom_map = {
                 "21:9": custom_21_9,
                 "16:9": custom_16_9,
-                "4:3": custom_4_3,
                 "1:1": custom_1_1,
-                "3:4": custom_3_4,
                 "9:16": custom_9_16,
-                "9:21": custom_9_21
+                "9:21": custom_9_21,
+                "4:3": custom_4_3,
+                "3:4": custom_3_4,
             }
             width, height = self.parse_custom_resolution(custom_map[ratio_name])
             if width is not None and height is not None:
@@ -161,11 +161,12 @@ class PredefinedResolutionNode:
     def calculate_resolution(self, width, height, output_resolution,
                             enable_21_9=True, custom_21_9="2560x1080",
                             enable_16_9=True, custom_16_9="1920x1080",
-                            enable_4_3=True, custom_4_3="1440x1080",
                             enable_1_1=True, custom_1_1="1080x1080",
-                            enable_3_4=True, custom_3_4="1080x1440",
                             enable_9_16=True, custom_9_16="1080x1920",
-                            enable_9_21=True, custom_9_21="1080x2560"):
+                            enable_9_21=True, custom_9_21="1080x2560",
+                            enable_4_3=True, custom_4_3="1440x1080",
+                            enable_3_4=True, custom_3_4="1080x1440",
+                            ):
         
         input_ratio = width / height if height > 0 else 1.0
         
